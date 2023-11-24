@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import User, MarketplaceItem
+from .models import LoginUser, MarketplaceItem
 
 # Register your models here.
-admin.site.register(User)
+admin.site.register(LoginUser)
 admin.site.register(MarketplaceItem)

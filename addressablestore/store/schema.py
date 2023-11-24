@@ -1,10 +1,10 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from .models import User, MarketplaceItem
+from .models import LoginUser, MarketplaceItem
 
 class UserType(DjangoObjectType):
     class Meta:
-        model = User
+        model = LoginUser
 
 class MarketplaceItemType(DjangoObjectType):
     class Meta:
@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
     all_marketplace_items = graphene.List(MarketplaceItemType)
 
     def resolve_all_users(self, info, **kwargs):
-        return User.objects.all()
+        return LoginUser.objects.all()
 
     def resolve_all_marketplace_items(self, info, **kwargs):
         return MarketplaceItem.objects.all()

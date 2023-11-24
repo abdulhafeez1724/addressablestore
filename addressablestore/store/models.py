@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.crypto import get_random_string
 
-class User(models.Model):
+class LoginUser(models.Model):
     unique_id = models.CharField(max_length=6, unique=True, blank=True, null=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -35,7 +35,7 @@ class MarketplaceItem(models.Model):
     price = models.IntegerField() 
 
     # Reference to the user who listed the item
-    listed_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='listed_items')
+    listed_by = models.ForeignKey(LoginUser, on_delete=models.CASCADE, related_name='listed_items')
 
     def __str__(self):
         return f"Item {self.id} - {self.category} - {self.status} - Price: {self.price} coins"
