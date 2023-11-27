@@ -2,7 +2,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from .models import AppUser, Listing, Transaction
 from django.shortcuts import get_object_or_404
-
+import secrets
 
 class UserType(DjangoObjectType):
     class Meta:
@@ -11,7 +11,6 @@ class UserType(DjangoObjectType):
 class ListingType(DjangoObjectType):
     class Meta:
         model = Listing
-
 
 class TransactionType(DjangoObjectType):
     class Meta:
@@ -33,15 +32,15 @@ class Query(graphene.ObjectType):
     
 class CreateAppUserMutation(graphene.Mutation):
     class Arguments:
-        username = graphene.String(required=True)
         app_package_name = graphene.String(required=True)
 
     app_user = graphene.Field(UserType)
 
-    def mutate(self, info, username, app_package_name):
+    def mutate(self, info, app_package_name):
+        username = secrets.token_hex(3)[:6]
+
         app_user = AppUser(username=username, app_package_name=app_package_name)
         app_user.save()
-
         return CreateAppUserMutation(app_user=app_user)
 
 class CreateListingMutation(graphene.Mutation):
