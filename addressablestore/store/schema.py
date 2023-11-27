@@ -1,60 +1,61 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from .models import AppUser, MarketplaceItem
-from django.utils.crypto import get_random_string
-from django.utils.timezone import now
+from .models import AppUser, Listing
+
 
 class UserType(DjangoObjectType):
     class Meta:
         model = AppUser
 
-class MarketplaceItemType(DjangoObjectType):
+class ListingType(DjangoObjectType):
     class Meta:
-        model = MarketplaceItem
-
-class CreateUser(graphene.Mutation):
-    class Arguments:
-        created_at = graphene.DateTime()
-
-    user = graphene.Field(UserType)
-
-    def mutate(self, info, created_at=None):
-        if created_at is None:
-            created_at = now()
-
-        unique_id = get_random_string(length=6, allowed_chars='0123456789')
-        user = AppUser(unique_id=unique_id, created_at=created_at)
-        user.save()
-        return CreateUser(user=user)
-
-class CreateMarketplaceItem(graphene.Mutation):
-    class Arguments:
-        data = graphene.String()
-        category = graphene.String()
-        status = graphene.String()
-        price = graphene.Int()
-        listed_by_id = graphene.Int()
-
-    item = graphene.Field(MarketplaceItemType)
-
-    def mutate(self, info, data, category, status, price, listed_by_id):
-        user = AppUser.objects.get(pk=listed_by_id)
-        item = MarketplaceItem(data=data, category=category, status=status, price=price, listed_by=user)
-        item.save()
-        return CreateMarketplaceItem(item=item)
+        model = Listing
 
 class Query(graphene.ObjectType):
     all_users = graphene.List(UserType)
-    all_marketplace_items = graphene.List(MarketplaceItemType)
+    all_listing = graphene.List(ListingType)
 
     def resolve_all_users(self, info, **kwargs):
         return AppUser.objects.all()
 
-    def resolve_all_marketplace_items(self, info, **kwargs):
-        return MarketplaceItem.objects.all()
+    def resolve_all_listing(self, info, **kwargs):
+        return Listing.objects.all()
+
+class CreateAppUserMutation(graphene.Mutation):
+    class Arguments:
+        username = graphene.String(required=True)
+        app_package_name = graphene.String(required=True)
+
+    app_user = graphene.Field(UserType)
+
+    def mutate(self, info, username, app_package_name):
+        app_user = AppUser(username=username, app_package_name=app_package_name)
+        app_user.save()
+
+        return CreateAppUserMutation(app_user=app_user)
+
+class CreateListingMutation(graphene.Mutation):
+    class Arguments:
+        data = graphene.String(required=True)
+        category = graphene.String(required=True)
+        status = graphene.String()
+        price = graphene.Int(required=True)
+        listed_by = graphene.Int(required=True)
+        claim = graphene.Boolean(required=True)
+    
+    listing = graphene.Field(ListingType)
+
+    def mutate(self, info, data, category, status=None, price=None, listed_by=None, claim=None):
+        app_user = AppUser.objects.get(pk=listed_by)
+        listing = Listing(data=data, category=category, status=status, price=price, listed_by=app_user, claim=claim)
+        listing.save()
+
+        return CreateListingMutation(listing=listing)
+
+
 
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
-    create_marketplace_item = CreateMarketplaceItem.Field()
+    create_app_user = CreateAppUserMutation.Field()
+    create_listing = CreateListingMutation.Field()
 
-schema = graphene.Schema(query=Query, mutation=Mutation)
+schema = graphene.Schema(query=Query , mutation=Mutation)
