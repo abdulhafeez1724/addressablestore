@@ -12,6 +12,7 @@ class ListingType(DjangoObjectType):
     class Meta:
         model = Listing
 
+
 class TransactionType(DjangoObjectType):
     class Meta:
         model = Transaction
@@ -61,27 +62,27 @@ class CreateListingMutation(graphene.Mutation):
 
         return CreateListingMutation(listing=listing)
 
-# class CreateNewListing(graphene.Mutation):
-#     class Arguments:
-#         price = graphene.Int(required=True)
-#         pname = graphene.String(required=True)
-#         data = graphene.String(required=True)
-#         category = graphene.String(required=True)
+class CreateNewListing(graphene.Mutation):
+    class Arguments:
+        price = graphene.Int(required=True)
+        pname = graphene.String(required=True)
+        data = graphene.String(required=True)
+        category = graphene.String(required=True)
 
-#     def mutate(self, info, price, pname, data, category):
-#         user = AppUser(
-#             username="this11",
-#             pname=pname
-#         )
-#         # user = get_object_or_404(AppUser, id=userid)
-#         listing = Listing(
-#             data= data,
-#             category=category,
-#             price=price,
-#             listed_by = user
-#         )
-#         listing.save()
-#         return user
+    def mutate(self, info, price, pname, data, category):
+        user = AppUser(
+            username="this11",
+            pname=pname
+        )
+        # user = get_object_or_404(AppUser, id=userid)
+        listing = Listing(
+            data= data,
+            category=category,
+            price=price,
+            listed_by = user
+        )
+        listing.save()
+        return user
 
 class CreateTransactionMutation(graphene.Mutation):
     class Arguments:
