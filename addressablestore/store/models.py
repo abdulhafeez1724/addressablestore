@@ -1,41 +1,42 @@
 from django.db import models
-from django.utils.crypto import get_random_string
 
 class AppUser(models.Model):
-    user_id = models.CharField(max_length=10)
-    package_name = models.CharField(max_length=100)
+    username = models.CharField(max_length=6, unique=True)
+    app_package_name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    # def save(self, *args, **kwargs):
-    #     if not self.unique_id:
-    #         self.unique_id = self.generate_unique_id()
-    #     super().save(*args, **kwargs)
-
-    # def generate_unique_id(self):
-    #     return get_random_string(length=6, allowed_chars='0123456789')
 
     def __str__(self):
-        return f"User {self.user_id} created at {self.created_at}"
+        return f"{self.username}"
+
 
 class Listing(models.Model):
-    CATEGORY_CHOICES = [
-        ('bus', 'Bus'),
-        ('bike', 'Bike'),
-        ('character', 'Character'),
-    ]
+    class Category(models.TextChoices):
+        BUS = 'bus', 'Bus'
+        BIKE = 'bike', 'Bike'
+        CHARACTER = 'character', 'Character'
+        PARTS = 'parts', 'Parts'
 
-    STATUS_CHOICES = [
-        ('for_sale', 'For Sale'),
-        ('sold_out', 'Sold Out'),
-        ('pending', 'Pending'),
-    ]
+    class Status(models.TextChoices):
+        FOR_SALE = 'for_sale', 'For Sale'
+        SOLD_OUT = 'sold_out', 'Sold Out'
+        PENDING = 'pending', 'Pending'
 
     data = models.TextField()  
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='for_sale')
+    category = models.CharField(max_length=20, choices=Category.choices)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.FOR_SALE)
     price = models.IntegerField()
     listed_by = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     claim = models.BooleanField(default=False)
+
     def __str__(self):
-        return f"Item {self.id} - {self.category} - {self.status} - Price: {self.price} coins"
+        return f"{self.listed_by} - {self.category} - {self.status} - Price: {self.price} coins"
+
+
+class Transaction(models.Model):
+    seller = models.ForeignKey(AppUser, related_name='seller', on_delete=models.CASCADE)
+    buyer = models.ForeignKey(AppUser, related_name='buyer', on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    transaction_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Seller: {self.seller.username}, Buyer: {self.buyer.username}, Listing: {self.listing.id}, Date: {self.transaction_date}"
