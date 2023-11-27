@@ -8,7 +8,7 @@ class UserType(DjangoObjectType):
     class Meta:
         model = AppUser
 
-class ListingType(DjangoObjectType):
+class NewListingType(DjangoObjectType):
     class Meta:
         model = Listing
 
@@ -18,13 +18,16 @@ class TransactionType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     all_users = graphene.List(UserType)
-    all_listing = graphene.List(ListingType)
+    all_new_listing = graphene.List(NewListingType)
     all_transactions = graphene.List(TransactionType)
 
     def resolve_all_users(self, info, **kwargs):
         return AppUser.objects.all()
 
     def resolve_all_listing(self, info, **kwargs):
+        return Listing.objects.all()
+    
+    def resolve_all_new_listing(self, info, **kwargs):
         return Listing.objects.all()
 
     def resolve_all_transactions(self, info, **kwargs):
@@ -43,46 +46,24 @@ class CreateAppUserMutation(graphene.Mutation):
         app_user.save()
         return CreateAppUserMutation(app_user=app_user)
 
-class CreateListingMutation(graphene.Mutation):
+
+class CreateNewListing(graphene.Mutation):
     class Arguments:
+        price = graphene.Int(required=True)
         data = graphene.String(required=True)
         category = graphene.String(required=True)
-        status = graphene.String()
-        price = graphene.Int(required=True)
-        listed_by = graphene.Int(required=True)
-        claim = graphene.Boolean(required=True)
-    
-    listing = graphene.Field(ListingType)
+        app_user_id = graphene.Int(required=True)
 
-    def mutate(self, info, data, category, status=None, price=None, listed_by=None, claim=None):
-        app_user = AppUser.objects.get(pk=listed_by)
-        listing = Listing(data=data, category=category, status=status, price=price, listed_by=app_user, claim=claim)
+    listing = graphene.Field(NewListingType)
+
+    def mutate(self, info, price, data, category, app_user_id):
+        app_user = AppUser.objects.get(id=app_user_id)
+
+        listing = Listing(price=price, data=data, category=category, app_user=app_user)
         listing.save()
 
-        return CreateListingMutation(listing=listing)
-
-# class CreateNewListing(graphene.Mutation):
-#     class Arguments:
-#         price = graphene.Int(required=True)
-#         pname = graphene.String(required=True)
-#         data = graphene.String(required=True)
-#         category = graphene.String(required=True)
-
-#     def mutate(self, info, price, pname, data, category):
-#         user = AppUser(
-#             username="this11",
-#             pname=pname
-#         )
-#         # user = get_object_or_404(AppUser, id=userid)
-#         listing = Listing(
-#             data= data,
-#             category=category,
-#             price=price,
-#             listed_by = user
-#         )
-#         listing.save()
-#         return user
-
+        return CreateNewListing(listing=listing)
+    
 class CreateTransactionMutation(graphene.Mutation):
     class Arguments:
         seller_id = graphene.Int(required=True)
@@ -103,7 +84,7 @@ class CreateTransactionMutation(graphene.Mutation):
 
 class Mutation(graphene.ObjectType):
     create_app_user = CreateAppUserMutation.Field()
-    create_listing = CreateListingMutation.Field()
+    create_new_listing = CreateNewListing.Field()
     create_transaction = CreateTransactionMutation.Field()
 
 schema = graphene.Schema(query=Query , mutation=Mutation)
