@@ -30,7 +30,6 @@ class NewListingNode(DjangoObjectType):
     def resolve_listing(self, info, package_name=None):
         listing = None
         if package_name:
-            #AppUser model to get user IDs for the specified package_name
             users = AppUser.objects.filter(app_package_name=package_name).values_list('id', flat=True)
 
             listing = Listing.objects.filter(
@@ -39,5 +38,3 @@ class NewListingNode(DjangoObjectType):
                 claim=False
                 )
         return listing
-
-   
