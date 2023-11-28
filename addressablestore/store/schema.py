@@ -1,50 +1,38 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from .models import AppUser, Listing, Transaction
+from .models import AppUser, Listing
 from django.shortcuts import get_object_or_404
 import secrets
+from .types import NewListingNode
 
 class UserType(DjangoObjectType):
     class Meta:
         model = AppUser
 
-class NewListingType(DjangoObjectType):
-    class Meta:
-        model = Listing
-
-class TransactionType(DjangoObjectType):
-    class Meta:
-        model = Transaction
-
 class Query(graphene.ObjectType):
-    all_users = graphene.List(UserType)
-    all_new_listing = graphene.List(NewListingType)
-    all_transactions = graphene.List(TransactionType)
-
-    def resolve_all_users(self, info, **kwargs):
-        return AppUser.objects.all()
-
-    def resolve_all_listing(self, info, **kwargs):
-        return Listing.objects.all()
+    all_listing = graphene.List(NewListingNode, package_name=graphene.String(), user_id=graphene.Int())
     
-    def resolve_all_new_listing(self, info, **kwargs):
-        return Listing.objects.all()
+    def resolve_all_listing(self, info, package_name=None, user_id=None):
+        if package_name:
+            users = AppUser.objects.filter(app_package_name=package_name).values_list('id', flat=True)
+        elif user_id:
+            p_name = AppUser.objects.filter(id=user_id).values_list('app_package_name', flat=True)
 
-    def resolve_all_transactions(self, info, **kwargs):
-        return Transaction.objects.all()
-    
-class CreateAppUserMutation(graphene.Mutation):
-    class Arguments:
-        app_package_name = graphene.String(required=True)
+            users = AppUser.objects.filter(app_package_name__in=p_name).values_list('id', flat=True)
+        else:
+            return "Package Name or User ID is reqired"
 
-    app_user = graphene.Field(UserType)
+        listing = Listing.objects.filter(
+            listed_by__in=users,
+            status='for_sale',
+            claim=False
+            )
+        return listing
+        # return NewListingNode(listing=listing)
+        # return listing  
 
-    def mutate(self, info, app_package_name):
-        username = secrets.token_hex(3)[:6]
-
-        app_user = AppUser(username=username, app_package_name=app_package_name)
-        app_user.save()
-        return CreateAppUserMutation(app_user=app_user)
+    # def resolve_all_transactions(self, info, **kwargs):
+    #     return Transaction.objects.all()
 
 
 class CreateNewListing(graphene.Mutation):
@@ -52,39 +40,41 @@ class CreateNewListing(graphene.Mutation):
         price = graphene.Int(required=True)
         data = graphene.String(required=True)
         category = graphene.String(required=True)
-        app_user_id = graphene.Int(required=True)
+        app_package_name = graphene.String(required=True)
 
-    listing = graphene.Field(NewListingType)
+    app_user = graphene.Field(UserType)
 
-    def mutate(self, info, price, data, category, app_user_id):
-        app_user = AppUser.objects.get(id=app_user_id)
+    def mutate(self, info, price, data, category, app_package_name):
+        app_user = AppUser(
+            username=secrets.token_hex(3)[:6],
+            app_package_name=app_package_name
+        )
+        app_user.save()
 
-        listing = Listing(price=price, data=data, category=category, app_user=app_user)
+        listing = Listing(price=price, data=data, category=category, listed_by=app_user)
         listing.save()
 
-        return CreateNewListing(listing=listing)
+        return CreateNewListing(app_user=app_user)
     
-class CreateTransactionMutation(graphene.Mutation):
+class CreateListing(graphene.Mutation):
     class Arguments:
-        seller_id = graphene.Int(required=True)
-        buyer_id = graphene.Int(required=True)
-        listing_id = graphene.Int(required=True)
+        price = graphene.Int(required=True)
+        data = graphene.String(required=True)
+        category = graphene.String(required=True)
+        user_id = graphene.Int(required=True)
 
-    transaction = graphene.Field(TransactionType)
+    app_user = graphene.Field(UserType)
 
-    def mutate(self, info, seller_id, buyer_id, listing_id):
-        seller = AppUser.objects.get(pk=seller_id)
-        buyer = AppUser.objects.get(pk=buyer_id)
-        listing = Listing.objects.get(pk=listing_id)
+    def mutate(self, info, price, data, category, user_id):
+        app_user = get_object_or_404(AppUser, id=user_id)
 
-        transaction = Transaction(seller=seller, buyer=buyer, listing=listing)
-        transaction.save()
+        listing = Listing(price=price, data=data, category=category, listed_by=app_user)
+        listing.save()
 
-        return CreateTransactionMutation(transaction=transaction)
+        return CreateListing(app_user=app_user)
 
 class Mutation(graphene.ObjectType):
-    create_app_user = CreateAppUserMutation.Field()
     create_new_listing = CreateNewListing.Field()
-    create_transaction = CreateTransactionMutation.Field()
+    create_listing = CreateListing.Field()
 
-schema = graphene.Schema(query=Query , mutation=Mutation)
+schema = graphene.Schema(query=Query, mutation=Mutation)

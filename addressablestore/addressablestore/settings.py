@@ -82,12 +82,12 @@ if DB_ENGINE and DB_NAME and DB_USERNAME:
     DATABASES = { 
       'default': {
         'ENGINE'  : 'django.db.backends.' + DB_ENGINE, 
-        'NAME'    : 'assetapi',
-        'USER'    : 'postgres',
-        'PASSWORD': 'mobify',
-        'HOST'    : 'localhost',
-        'PORT'    : '5432',
-        'SCHEMA'  : 'public'
+        'NAME'    : DB_NAME,
+        'USER'    : DB_USERNAME,
+        'PASSWORD': DB_PASS,
+        'HOST'    : DB_HOST,
+        'PORT'    : DB_PORT,
+        'SCHEMA'  : DB_SCHEMA
         }, 
     }
 else:
