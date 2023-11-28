@@ -1,2 +1,40 @@
 INFO 2023-11-28 16:08:28,019 autoreload Watching for file changes with StatReloader
 INFO 2023-11-28 16:09:07,862 autoreload Watching for file changes with StatReloader
+INFO 2023-11-28 16:10:07,470 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:18:19,850 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:18:29,284 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:18:41,455 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\store\types.py changed, reloading.
+INFO 2023-11-28 16:18:42,249 autoreload Watching for file changes with StatReloader
+INFO 2023-11-28 16:19:14,656 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\store\types.py changed, reloading.
+INFO 2023-11-28 16:19:15,429 autoreload Watching for file changes with StatReloader
+INFO 2023-11-28 16:22:29,307 autoreload Watching for file changes with StatReloader
+INFO 2023-11-28 16:22:37,555 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:23:59,055 basehttp "GET /admin/store/listing/ HTTP/1.1" 200 9969
+INFO 2023-11-28 16:23:59,131 basehttp "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2023-11-28 16:32:17,461 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:34:20,410 basehttp "POST /graphql HTTP/1.1" 200 197
+INFO 2023-11-28 16:36:16,802 basehttp "POST /graphql HTTP/1.1" 200 25032
+INFO 2023-11-28 16:36:21,136 basehttp "POST /graphql HTTP/1.1" 200 25032
+INFO 2023-11-28 16:38:13,732 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:39:15,973 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:39:34,485 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:39:47,376 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:39:51,806 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:40:12,798 basehttp "POST /graphql HTTP/1.1" 200 237
+INFO 2023-11-28 16:40:34,997 basehttp "POST /graphql HTTP/1.1" 200 277
+WARNING 2023-11-28 16:41:01,594 log Bad Request: /graphql
+WARNING 2023-11-28 16:41:01,594 basehttp "POST /graphql HTTP/1.1" 400 93
+INFO 2023-11-28 16:41:23,896 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:41:30,925 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:41:42,389 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:42:23,776 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:42:36,987 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:45:53,239 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:46:42,645 basehttp "POST /graphql HTTP/1.1" 200 26
+INFO 2023-11-28 16:46:48,606 basehttp "POST /graphql HTTP/1.1" 200 277
+INFO 2023-11-28 16:46:52,764 basehttp "POST /graphql HTTP/1.1" 200 25032
+INFO 2023-11-28 16:46:53,410 basehttp "POST /graphql HTTP/1.1" 200 25032
+INFO 2023-11-28 16:46:53,631 basehttp "POST /graphql HTTP/1.1" 200 25032
+INFO 2023-11-28 16:46:54,651 basehttp "POST /graphql HTTP/1.1" 200 277
+WARNING 2023-11-28 16:50:56,154 log Bad Request: /graphql
+WARNING 2023-11-28 16:50:56,154 basehttp "POST /graphql HTTP/1.1" 400 124
