@@ -1,0 +1,32 @@
+# Django project files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Static and media files
+/addressablestore/static/files/
+/addressablestore/media/
+/addressablestore/staticfiles/
+
+# Virtual environment
+env/
+.env
+
+# Local development settings
+local_settings.py
+
+# Editor-specific files
+.vscode/
+*.swp
+*~
+
+# Dependency files
+node_modules/
+pip-wheel-metadata/
+*.egg-info/
+
+# Log files
+*.log

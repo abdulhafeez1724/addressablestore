@@ -1,5 +1,6 @@
 INFO 2023-11-28 16:08:28,019 autoreload Watching for file changes with StatReloader
 INFO 2023-11-28 16:09:07,862 autoreload Watching for file changes with StatReloader
+<<<<<<< HEAD
 INFO 2023-11-28 16:10:07,470 basehttp "POST /graphql HTTP/1.1" 200 197
 INFO 2023-11-28 16:18:19,850 basehttp "POST /graphql HTTP/1.1" 200 197
 INFO 2023-11-28 16:18:29,284 basehttp "POST /graphql HTTP/1.1" 200 197
@@ -38,3 +39,10 @@ INFO 2023-11-28 16:46:53,631 basehttp "POST /graphql HTTP/1.1" 200 25032
 INFO 2023-11-28 16:46:54,651 basehttp "POST /graphql HTTP/1.1" 200 277
 WARNING 2023-11-28 16:50:56,154 log Bad Request: /graphql
 WARNING 2023-11-28 16:50:56,154 basehttp "POST /graphql HTTP/1.1" 400 124
+=======
+INFO 2023-11-29 09:49:27,267 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 09:51:25,515 autoreload E:\django\addressablestore\addressablestore\store\types.py changed, reloading.
+INFO 2023-11-29 09:51:26,384 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 09:54:08,759 basehttp "POST /graphql HTTP/1.1" 200 27053
+INFO 2023-11-29 09:54:09,267 basehttp "POST /graphql HTTP/1.1" 200 27053
+>>>>>>> main

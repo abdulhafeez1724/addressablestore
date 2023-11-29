@@ -11,6 +11,7 @@ class AppUser(models.Model):
 
 class Listing(models.Model):
     class Category(models.TextChoices):
+        CAR = 'car', 'Car'
         BUS = 'bus', 'Bus'
         BIKE = 'bike', 'Bike'
         CHARACTER = 'character', 'Character'
@@ -20,6 +21,9 @@ class Listing(models.Model):
         FOR_SALE = 'for_sale', 'For Sale'
         SOLD_OUT = 'sold_out', 'Sold Out'
         PENDING = 'pending', 'Pending'
+        
+    class Meta:
+        ordering = ['-created_at']
 
     data = models.TextField()  
     category = models.CharField(max_length=20, choices=Category.choices)
@@ -27,16 +31,16 @@ class Listing(models.Model):
     price = models.IntegerField()
     listed_by = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     claim = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.listed_by} - {self.category} - {self.status} - Price: {self.price} coins"
 
 
 class Transaction(models.Model):
-    seller = models.ForeignKey(AppUser, related_name='seller', on_delete=models.CASCADE)
     buyer = models.ForeignKey(AppUser, related_name='buyer', on_delete=models.CASCADE)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    transaction_date = models.DateTimeField(auto_now_add=True)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Seller: {self.seller.username}, Buyer: {self.buyer.username}, Listing: {self.listing.id}, Date: {self.transaction_date}"
