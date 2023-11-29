@@ -1,0 +1,33 @@
+# mutation{
+#   createNewListing(
+#     appPackageName:"com.google.apps",
+#     category:"bus",
+#     price:1000,
+#     data:"this is some data"
+#   ){
+#     appUser{
+#       id
+#       username
+#     }
+#   }
+# }
+# mutation{
+#   createListing(
+#     userId:1,
+#     category:"parts",
+#     price:200,
+#     data:"parts this is some data"
+#   ){
+#     appUser{
+#       id
+#       username
+#     }
+#   }
+# }
+# query{
+#   allListing(
+#     packageName:"com.google.apps",
+#   ){
+#     data
+#   }
+# }
