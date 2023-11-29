@@ -46,3 +46,50 @@ INFO 2023-11-29 09:51:26,384 autoreload Watching for file changes with StatReloa
 INFO 2023-11-29 09:54:08,759 basehttp "POST /graphql HTTP/1.1" 200 27053
 INFO 2023-11-29 09:54:09,267 basehttp "POST /graphql HTTP/1.1" 200 27053
 >>>>>>> main
+INFO 2023-11-29 11:34:17,395 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:35:02,462 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:35:30,335 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:38:33,933 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:38:59,365 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:39:11,957 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:39:31,211 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:41:11,563 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:44:09,948 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:46:23,962 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:46:42,172 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:49:32,383 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:49:51,720 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\addressablestore\settings.py changed, reloading.
+INFO 2023-11-29 11:50:02,710 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:52:03,956 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\addressablestore\settings.py changed, reloading.
+INFO 2023-11-29 11:52:04,633 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:54:39,673 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:57:40,158 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 11:59:47,194 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:02:56,507 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:03:16,168 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:03:29,579 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:03:41,758 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:03:54,176 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:05:07,235 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:05:25,078 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:05:37,433 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:06:44,827 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:08:42,745 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\addressablestore\settings.py changed, reloading.
+INFO 2023-11-29 12:08:43,476 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:14:37,030 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:14:49,077 autoreload C:\Users\Mobify\Documents\GitHub\addressablestore\addressablestore\addressablestore\settings.py changed, reloading.
+INFO 2023-11-29 12:14:49,786 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:21:23,481 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:28:14,175 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:31:03,430 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:34:25,308 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:34:44,184 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:34:56,052 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:35:51,788 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:39:33,166 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:51:28,722 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:54:29,678 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:54:44,879 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 12:54:57,098 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 14:09:05,386 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 14:13:38,089 autoreload Watching for file changes with StatReloader
