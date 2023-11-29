@@ -3,3 +3,5 @@ INFO 2023-11-28 16:09:07,862 autoreload Watching for file changes with StatReloa
 INFO 2023-11-29 09:49:27,267 autoreload Watching for file changes with StatReloader
 INFO 2023-11-29 09:51:25,515 autoreload E:\django\addressablestore\addressablestore\store\types.py changed, reloading.
 INFO 2023-11-29 09:51:26,384 autoreload Watching for file changes with StatReloader
+INFO 2023-11-29 09:54:08,759 basehttp "POST /graphql HTTP/1.1" 200 27053
+INFO 2023-11-29 09:54:09,267 basehttp "POST /graphql HTTP/1.1" 200 27053

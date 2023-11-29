@@ -1,0 +1,91 @@
+type Query {
+  allListing(packageName: String, userId: Int): [NewListingNode]
+  myListing(userId: Int): [NewListingNode]
+}
+
+type NewListingNode {
+  id: ID!
+  data: String!
+  category: StoreListingCategoryChoices!
+  status: StoreListingStatusChoices!
+  price: Int!
+  listedBy: UserType!
+  claim: Boolean!
+  createdAt: DateTime!
+}
+
+"""An enumeration."""
+enum StoreListingCategoryChoices {
+  """Car"""
+  CAR
+
+  """Bus"""
+  BUS
+
+  """Bike"""
+  BIKE
+
+  """Character"""
+  CHARACTER
+
+  """Parts"""
+  PARTS
+}
+
+"""An enumeration."""
+enum StoreListingStatusChoices {
+  """For Sale"""
+  FOR_SALE
+
+  """Sold Out"""
+  SOLD_OUT
+
+  """Pending"""
+  PENDING
+}
+
+type UserType {
+  id: ID!
+  username: String!
+  appPackageName: String!
+  createdAt: DateTime!
+  listingSet: [NewListingNode!]!
+}
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+type Mutation {
+  createNewListing(appPackageName: String!, category: CatType!, data: String!, price: Int!): CreateNewListing
+  createListing(category: CatType!, data: String!, price: Int!, userId: Int!): CreateListing
+  newPurchase(appPackageName: String!, listingId: Int!): PurchaseNew
+  purchase(listingId: Int!, userId: Int!): Purchase
+}
+
+type CreateNewListing {
+  appUser: UserType
+}
+
+enum CatType {
+  CAR
+  BUS
+  BIKE
+  CHARACTER
+  PARTS
+}
+
+type CreateListing {
+  appUser: UserType
+}
+
+type PurchaseNew {
+  appUser: UserType
+}
+
+type Purchase {
+  appUser: UserType
+}
